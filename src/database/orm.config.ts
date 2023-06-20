@@ -9,7 +9,7 @@ export const dataSourceOptions: DataSourceOptions =
     host:"localhost",
     port: 5432,
     database:"kuyayana",
-    entities: [__dirname + '../modules/**/entities/*.entity.{ts,js}'],
+    entities: [__dirname + '../modules/**/**/entities/*.entity.{ts,js}'],
     migrations: ["./migrations"],
     migrationsRun: true,
     synchronize: false,

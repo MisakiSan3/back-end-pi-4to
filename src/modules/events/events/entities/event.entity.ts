@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CategoriaEvento } from "../../categoria_eventos/entities/categoria_evento.entity";
-import { TeacherUser } from "src/modules/user/teacher_user/entities/teacher_user.entity";
+import { Teacher } from "src/modules/academic/teachers/entities/teacher.entity";
 
 @Entity('eventos')
 export class Event {
@@ -42,6 +42,6 @@ export class Event {
     @ManyToOne(type=> CategoriaEvento, categoriaevento => categoriaevento.eventos)
     categoria: CategoriaEvento;
 
-    @ManyToOne(type=> TeacherUser, categoriaevento => categoriaevento.eventos)
-    teacher_user: CategoriaEvento;
+    @ManyToOne(type=> Teacher, teacher => teacher.event)
+    maestro: Teacher;
 }

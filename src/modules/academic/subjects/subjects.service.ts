@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSubjectDto } from './dto/create-subject.dto';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
 import { SubjectDto } from './dto/subject.dto';
 import { Subject } from './entities/subject.entity';
@@ -24,7 +23,7 @@ export class SubjectsService {
 
   async findAll():Promise<Subject[]> {
     try {
-        const subjects: Subject[] =await this.subjectRepostory.find();
+        const subjects: Subject[] =await this.subjectRepostory.createQueryBuilder('asignaturas').leftJoinAndSelect('asignaturas.user','user').getMany();
         if (subjects.length === 0) {
           throw new ErrorManager({
             type:'BAD_REQUEST',
@@ -39,7 +38,7 @@ export class SubjectsService {
 
   async findOne(id: string):Promise<Subject> {
     try {
-        const subject: Subject = await this.subjectRepostory.createQueryBuilder('asignaturas').where({id}).getOne()
+        const subject: Subject = await this.subjectRepostory.createQueryBuilder('asignaturas').leftJoinAndSelect('asignaturas.user','user').where({id}).getOne()
         if (!subject) {
           throw new ErrorManager({
             type:'BAD_REQUEST',

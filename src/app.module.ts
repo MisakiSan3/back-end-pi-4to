@@ -6,7 +6,6 @@ import { TeachersModule } from './modules/academic/teachers/teachers.module';
 import { EventsModule } from './modules/events/events/events.module';
 import { CategoriaEventosModule } from './modules/events/categoria_eventos/categoria_eventos.module';
 import { UserModule } from './modules/user/user/user.module';
-import { TeacherUserModule } from './modules/user/teacher_user/teacher_user.module';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { Configuration } from './config/config.keys';
@@ -15,7 +14,7 @@ import { join } from 'path';
 
 
 @Module({
-  imports: [ConfigModule,SubjectsModule, TeachersModule, EventsModule, CategoriaEventosModule, UserModule, TeacherUserModule,
+  imports: [ConfigModule,SubjectsModule, TeachersModule, EventsModule, CategoriaEventosModule, UserModule,
     TypeOrmModule.forRootAsync(
       {
         imports: [ConfigModule],

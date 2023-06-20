@@ -24,7 +24,9 @@ export class TeachersService {
 
   async findAll():Promise<Teacher[]> {
     try {
-        const teachers: Teacher[] =await this.teacherRepostory.createQueryBuilder('maestro').leftJoinAndSelect('maestro.asignatura','asignatura').getMany();
+        const teachers: Teacher[] =await this.teacherRepostory.createQueryBuilder('maestro').
+        leftJoinAndSelect('maestro.asignatura','asignatura')
+        .leftJoinAndSelect('asignatura.user','user').getMany();
         if (teachers.length === 0) {
           throw new ErrorManager({
             type:'BAD_REQUEST',
@@ -39,7 +41,10 @@ export class TeachersService {
 
   async findOne(id: string):Promise<Teacher> {
     try {
-        const teacher: Teacher = await this.teacherRepostory.createQueryBuilder('maestro').where({id}).leftJoinAndSelect('maestro.asignatura','asignatura').getOne()
+        const teacher: Teacher = await this.teacherRepostory.createQueryBuilder('maestro')
+        .leftJoinAndSelect('maestro.asignatura','asignatura')
+        .leftJoinAndSelect('asignatura.user','user')
+        .where({id}).getOne()
         if (!teacher) {
           throw new ErrorManager({
             type:'BAD_REQUEST',

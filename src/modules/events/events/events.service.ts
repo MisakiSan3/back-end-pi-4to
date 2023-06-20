@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { Event } from './entities/event.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
@@ -27,10 +26,9 @@ export class EventsService {
   async findAll():Promise<Event[]> {
     try {
         const events: Event[] =await this.eventRepostory.createQueryBuilder('eventos')
-        .leftJoinAndSelect('eventos.teacher_user','maestro_usuario')
-        .leftJoinAndSelect('maestro_usuario.id_p','maestro')
+        .leftJoinAndSelect('eventos.maestro','maestro')
         .leftJoinAndSelect('maestro.asignatura','asignatura')
-        .leftJoinAndSelect('maestro_usuario.id_u','usuario')
+        .leftJoinAndSelect('asignatura.user','usuario')
         .leftJoinAndSelect('eventos.categoria','categoria')
         .getMany();
         if (events.length === 0) {
@@ -47,7 +45,13 @@ export class EventsService {
 
   async findOne(id: string):Promise<Event> {
     try {
-        const event: Event = await this.eventRepostory.createQueryBuilder('events').where({id}).getOne()
+        const event: Event = await this.eventRepostory
+        .createQueryBuilder('eventos')
+        .leftJoinAndSelect('eventos.maestro','maestro')
+        .leftJoinAndSelect('maestro.asignatura','asignatura')
+        .leftJoinAndSelect('asignatura.user','usuario')
+        .leftJoinAndSelect('eventos.categoria','categoria')
+        .where({id}).getOne()
         if (!event) {
           throw new ErrorManager({
             type:'BAD_REQUEST',

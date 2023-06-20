@@ -1,7 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Subject } from "../../subjects/entities/subject.entity";
-import { TeacherUser } from "src/modules/user/teacher_user/entities/teacher_user.entity";
-import { User } from "src/modules/user/user/entities/user.entity";
+import { Event } from "src/modules/events/events/entities/event.entity";
 
 @Entity('maestro')
 export class Teacher {
@@ -40,13 +39,12 @@ export class Teacher {
     })
     email: string;
 
-    @ManyToMany(type=>User,user=>user.teacher)
-    user: User[];
 
     @ManyToOne(type=>Subject, subject=> subject.maestro)
     asignatura: Subject;
 
-    @OneToMany(type=>TeacherUser,teacheruser=>teacheruser.id_p)
-    profesor_usuario: TeacherUser[];
+    @OneToMany(type=>Event, event=> event.maestro)
+    event: Event;
+
 
 }

@@ -1,5 +1,6 @@
 import { IsDate, IsDateString, IsEmail, IsNotEmpty, IsString, IsUUID, Length, isDate } from "class-validator";
 import { CategoriaEvento } from "../../categoria_eventos/entities/categoria_evento.entity";
+import { Teacher } from "src/modules/academic/teachers/entities/teacher.entity";
 
 
 export class EventoDto {
@@ -22,5 +23,8 @@ export class EventoDto {
     description: string;
 
     @IsNotEmpty()
-    teacher_user: CategoriaEvento;
+    categoria: CategoriaEvento;
+
+    @IsNotEmpty()
+    maestro: Teacher;
 }

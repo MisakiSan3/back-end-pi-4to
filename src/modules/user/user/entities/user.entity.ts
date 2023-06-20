@@ -1,6 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { TeacherUser } from "../../teacher_user/entities/teacher_user.entity";
-import { Teacher } from "src/modules/academic/teachers/entities/teacher.entity";
+import { Subject } from "src/modules/academic/subjects/entities/subject.entity";
 
 @Entity('usuario')
 export class User {
@@ -59,11 +58,8 @@ export class User {
     })
     nickname: string;
 
-    @JoinTable()
-    @ManyToMany(type=>Teacher,teacher=>teacher.user)
-    teacher: Teacher[];
 
-    @OneToMany(type=>TeacherUser,teacheruser=>teacheruser.id_u)
-    profesor_usuario: TeacherUser[];
+    @OneToMany(type=>Subject,subject=>subject.user)
+    subject: Subject[];
 
 }

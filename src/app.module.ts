@@ -11,6 +11,7 @@ import { ConfigService } from './config/config.service';
 import { Configuration } from './config/config.keys';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { TeacherModule } from './modules/teacher/teacher.module';
 
 
 @Module({
@@ -33,7 +34,8 @@ import { join } from 'path';
             }
         }
     }
-    )],
+    ),
+    TeacherModule],
   controllers: [AppController],
   providers: [AppService],
 })

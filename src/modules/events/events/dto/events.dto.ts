@@ -7,15 +7,15 @@ export class EventoDto {
 
     @IsNotEmpty()
     @IsString()
-    nombre_a: string;
+    title: string;
 
     @IsNotEmpty()
     @IsDate()
-    fecha_i: Date;
+    start: Date;
     
     @IsNotEmpty()
     @IsDate()
-    fecha_f: Date;
+    end: Date;
 
     @IsNotEmpty()
     @IsString()

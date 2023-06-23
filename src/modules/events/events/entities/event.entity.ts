@@ -10,26 +10,26 @@ export class Event {
 
     //////////////////////////////////////////////////////////////
     @Column('varchar',{
-        name: 'nombre_p',
+        name: 'title',
         length: 30,
         nullable: false,
         comment: 'Nombre del evento',  
     })
-    nombre_a: string;
+    title: string;
 
     @Column('date',{
-        name: 'fecha_i',
+        name: 'start',
         nullable: false,
         comment: 'Fecha de inicio del evento',  
     })
-    fecha_i: Date;
+    start: Date;
     
     @Column('date',{
-        name: 'fecha_f',
+        name: 'end',
         nullable: true,
         comment: 'Fecha de finalización del evento',  
     })
-    fecha_f: Date;
+    end: Date;
 
     @Column('varchar',{
         name: 'description',

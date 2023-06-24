@@ -8,12 +8,12 @@ export class UpdateEventDto extends PartialType(EventoDto) {
     nombre_a: string;
 
     @IsOptional()
-    @IsDate()
-    fecha_i: Date;
+    @IsString()
+    fecha_i: string;
     
     @IsOptional()
-    @IsDate()
-    fecha_f: Date;
+    @IsString()
+    fecha_f: string;
 
     @IsOptional()
     @IsString()

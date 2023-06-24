@@ -10,12 +10,12 @@ export class EventoDto {
     title: string;
 
     @IsNotEmpty()
-    @IsDate()
-    start: Date;
+    @IsString()
+    start: string;
     
     @IsNotEmpty()
-    @IsDate()
-    end: Date;
+    @IsString()
+    end: string;
 
     @IsNotEmpty()
     @IsString()

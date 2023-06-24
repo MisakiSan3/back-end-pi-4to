@@ -75,6 +75,7 @@ export class EventsService {
         return event;
      } catch (e) {
       throw ErrorManager.createSignatureError(e.message)
+      
    }
   }
 

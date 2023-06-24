@@ -17,19 +17,19 @@ export class Event {
     })
     title: string;
 
-    @Column('date',{
+    @Column('varchar',{
         name: 'start',
         nullable: false,
         comment: 'Fecha de inicio del evento',  
     })
-    start: Date;
+    start: string;
     
-    @Column('date',{
+    @Column('varchar',{
         name: 'end',
         nullable: true,
         comment: 'Fecha de finalización del evento',  
     })
-    end: Date;
+    end: string;
 
     @Column('varchar',{
         name: 'description',

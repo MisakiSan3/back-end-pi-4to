@@ -12,10 +12,11 @@ import { Configuration } from './config/config.keys';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { TeacherModule } from './modules/teacher/teacher.module';
+import { LoginModule } from './modules/auth/logIn/login.module';
 
 
 @Module({
-  imports: [ConfigModule,SubjectsModule, TeachersModule, EventsModule, CategoriaEventosModule, UserModule,
+  imports: [ConfigModule,SubjectsModule, TeachersModule, EventsModule, CategoriaEventosModule,LoginModule, UserModule,
     TypeOrmModule.forRootAsync(
       {
         imports: [ConfigModule],

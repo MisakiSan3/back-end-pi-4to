@@ -5,6 +5,7 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsuarioDto } from './dto/user.dto';
 import { ErrorManager } from 'src/utils/error.manager';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -14,16 +15,30 @@ export class UserService {
     
 
   async create(createuserDto: UsuarioDto):Promise<User> {
+   /* const {
+      nombre_u,
+      apellido_u,
+      telf,
+      email,
+      contrasenia,
+      nickname,
+    }=createuserDto*/
+    
+    /*const hashedPassword = await bcrypt.hash(createuserDto.contrasenia, salt);*/
     try {
-        const user: User = await this.userRepostory.save(createuserDto);
-        return user;
+      const salt = await bcrypt.genSalt();
+      createuserDto.contrasenia = await bcrypt.hash(createuserDto.contrasenia, salt);
+      return await this.userRepostory.save(createuserDto);
+        //const user: User = await this.userRepostory.save(createuserDto);
+        //return user;
       } catch (e) {
-        throw new Error(e);
+        throw ErrorManager.createSignatureError(e.message);
     }
   }
 
   async findAll():Promise<User[]> {
     try {
+
         const users: User[] =await this.userRepostory.find();
         if (users.length === 0) {
           throw new ErrorManager({
@@ -49,6 +64,22 @@ export class UserService {
         return user;
       } catch (e) {
         throw ErrorManager.createSignatureError(e.message);
+    }
+  }
+
+  public async findBy({key, value}:{
+    key : keyof  UsuarioDto;
+    value : any;
+  }){
+    try {
+      const user : User = await this.userRepostory
+      .createQueryBuilder('user')
+      .addSelect('user.contrasenia')
+      .where({[key]: value})
+      .getOne(); 
+      return user;
+    }catch(e){
+      throw ErrorManager.createSignatureError(e.message);
     }
   }
   async update(id: string, updateeventDto: UpdateUserDto):Promise<UpdateResult | undefined> {

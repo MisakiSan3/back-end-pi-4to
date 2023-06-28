@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Subject } from "src/modules/academic/subjects/entities/subject.entity";
+import { Exclude } from "class-transformer";
 
 @Entity('usuario')
 export class User {
@@ -41,9 +42,10 @@ export class User {
     })
     email: string;
 
+   @Exclude()
     @Column('varchar',{
         name: 'contrasenia',
-        length: 15,
+        length: 255,
         nullable: false,
         comment: 'Contraseña del usuario',    
     })

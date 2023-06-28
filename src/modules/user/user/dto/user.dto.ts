@@ -20,11 +20,11 @@ export class UsuarioDto {
     @IsString()
     email: string;
 
-    @IsNotEmpty()
+   @IsNotEmpty()
     @IsString()
     contrasenia: string;
     
     @IsNotEmpty()
     @IsString()
-    nickname: string;
+nickname: string;
 }

@@ -33,6 +33,21 @@ export class SubjectsService {
         return subjects
       } catch (e) {
         throw ErrorManager.createSignatureError(e.message);
+    } 
+  }
+  async findAllbyUser(user:string):Promise<Subject[]> {
+    try {
+        const subjects: Subject[] =await this.subjectRepostory.createQueryBuilder('asignaturas').leftJoinAndSelect('asignaturas.user','user').where({user}).getMany();
+        if (!subjects) {
+          throw new ErrorManager({
+            type:'BAD_REQUEST',
+            message:'No existen el registro'
+          });
+        }else {
+          return subjects
+        }
+      } catch (e) {
+        throw ErrorManager.createSignatureError(e.message);
     }
   }
 

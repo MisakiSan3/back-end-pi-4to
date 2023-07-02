@@ -42,6 +42,24 @@ export class EventsService {
         throw ErrorManager.createSignatureError(e.message);
     }
   }
+  async findAllbyUser(user:string):Promise<Event[]> {
+    try {
+        const subjects: Event[] =await this.eventRepostory.createQueryBuilder('eventos')
+        .leftJoinAndSelect('eventos.maestro','maestro')
+        .leftJoinAndSelect('maestro.asignatura','asignatura')
+        .leftJoinAndSelect('asignatura.user','usuario').where('asignatura.user = :user',{user}).getMany();
+        if (!subjects) {
+          throw new ErrorManager({
+            type:'BAD_REQUEST',
+            message:'No existen el registro'
+          });
+        }else {
+          return subjects
+        }
+      } catch (e) {
+        throw ErrorManager.createSignatureError(e.message);
+    }
+  }
 
   async findOne(id: string):Promise<Event> {
     try {

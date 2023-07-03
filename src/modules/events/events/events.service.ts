@@ -45,13 +45,11 @@ export class EventsService {
   }
   async findAllbyUser(user:string):Promise<Event[]> {
     try {
-        const nombre_a: string = 'Clase'
-        const categoria = await this.categoryRepostory.find({where:{nombre_c:nombre_a}})
         const subjects: Event[] =await this.eventRepostory.createQueryBuilder('eventos')
         .leftJoinAndSelect('eventos.categoria','categoria')
         .leftJoinAndSelect('eventos.maestro','maestro')
         .leftJoinAndSelect('maestro.asignatura','asignatura')
-        .leftJoinAndSelect('asignatura.user','usuario').where('asignatura.user = :user',{user}).andWhere({categoria}).getMany();
+        .leftJoinAndSelect('asignatura.user','usuario').where('asignatura.user = :user',{user}).getMany();
         if (!subjects) {
           throw new ErrorManager({
             type:'BAD_REQUEST',

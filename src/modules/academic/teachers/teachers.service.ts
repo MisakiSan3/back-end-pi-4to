@@ -106,4 +106,5 @@ export class TeachersService {
         throw ErrorManager.createSignatureError(e.message)
     }
    }
+
 }

@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { LogInService } from './logIn.service';
 import { UserAuthDto } from './dto/log-in.dto';
 import { AuthBody } from './interfaces/login.interface';
+import { RegisterDto } from './dto/register.dto';
 
 
 
@@ -13,6 +14,7 @@ export class LogInController {
   async create(@Body() createEventDto: UserAuthDto) {
     return await this.loginService.findOne(createEventDto);
   }*/
+
   @Post('login')
   async login(@Body() { email, contrasenia }: UserAuthDto){
     const userValidate = await this.loginService.validateUser(
@@ -26,5 +28,10 @@ export class LogInController {
     
     const jwt = await this.loginService.generateJWT(userValidate);
     return jwt;
+  }
+
+  @Post('register')
+  async create(@Body() createUserDto: RegisterDto) {
+    return await this.loginService.register(createUserDto);
   }
 }

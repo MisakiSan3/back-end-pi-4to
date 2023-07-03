@@ -10,6 +10,8 @@ import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken';
 import { PayLoadToken } from './interfaces/login.interface';
 import { jwtConstants } from '../jwt.constants';
+import { RegisterDto } from './dto/register.dto';
+ import {hash} from 'bcrypt'
 
 
 @Injectable()
@@ -70,6 +72,23 @@ export class LogInService {
           user,
         }
        }
+      /*async register(userObject: RegisterDto){
+        const {contrasenia} = userObject;
+        const plainToHash = await hash(contrasenia, 10);
+        userObject = {...userObject, contrasenia:plainToHash};
+        return this.userRepostory.create(userObject)
+
+      }*/
+      async register(createuserDto: RegisterDto):Promise<User> {
+        try {
+          const salt = await bcrypt.genSalt();
+          createuserDto.contrasenia = await bcrypt.hash(createuserDto.contrasenia, salt);
+          return await this.userRepostory.save(createuserDto);
+          } catch (e) {
+            throw ErrorManager.createSignatureError(e.message);
+        }
+      }
+
  /* async findOne(userAuth: UserAuthDto):Promise<User> {
       try {
           const user: User = await this.userRepostory.createQueryBuilder('maestro').where({userAuth}).getOne()

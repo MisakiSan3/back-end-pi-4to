@@ -12,14 +12,20 @@ export class SubjectsController {
     return await this.subjectsService.create(createSubjectDto);
   }
 
+
+
   @Get()
   async findAll() {
     return await this.subjectsService.findAll();
   }
 
-  @Get('byUser/:id')
+ /* @Get('byUser/:id')
   async findAllbyUser(@Param('id') id:string) {
     return await this.subjectsService.findAllbyUser(id);
+  }*/
+  @Get('user/:userId')
+  async getSubjectsByUserId(@Param('userId') userId:string) {
+    return await this.subjectsService.getSubjectsByUserId(userId);
   }
 
   @Get(':id')

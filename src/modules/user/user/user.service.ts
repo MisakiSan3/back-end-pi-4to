@@ -15,22 +15,10 @@ export class UserService {
     
 
   async create(createuserDto: UsuarioDto):Promise<User> {
-   /* const {
-      nombre_u,
-      apellido_u,
-      telf,
-      email,
-      contrasenia,
-      nickname,
-    }=createuserDto*/
-    
-    /*const hashedPassword = await bcrypt.hash(createuserDto.contrasenia, salt);*/
     try {
       const salt = await bcrypt.genSalt();
       createuserDto.contrasenia = await bcrypt.hash(createuserDto.contrasenia, salt);
       return await this.userRepostory.save(createuserDto);
-        //const user: User = await this.userRepostory.save(createuserDto);
-        //return user;
       } catch (e) {
         throw ErrorManager.createSignatureError(e.message);
     }

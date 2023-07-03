@@ -5,6 +5,7 @@ import { Subject } from './entities/subject.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ErrorManager } from 'src/utils/error.manager';
+import { User } from 'src/modules/user/user/entities/user.entity';
 
 @Injectable()
 export class SubjectsService {
@@ -94,4 +95,8 @@ export class SubjectsService {
         throw ErrorManager.createSignatureError(e.message)
     }
    }
+
+   async getSubjectsByUserId(userId: string): Promise<Subject[]> {
+    return this.subjectRepostory.find({ where:{user:{id:userId}}});
+  }
 }

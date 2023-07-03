@@ -1,30 +1,29 @@
-import { IsEmail, IsNotEmpty, IsString, Length } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class UsuarioDto {
-    
-    @IsNotEmpty()
-    @IsString()
-    nombre_u: string;
+  @IsNotEmpty()
+  @IsString()
+  nombre_u: string;
 
-    @IsNotEmpty()
-    @IsString()
-    apellido_u: string;
+  @IsNotEmpty()
+  @IsString()
+  apellido_u: string;
 
-    @IsNotEmpty()
-    @Length(0,9)
-    @IsString()
-    telf: string;
+  @IsNotEmpty()
+  @Length(0, 10)
+  @IsString()
+  telf: string;
 
-    @IsNotEmpty()
-    @IsEmail()
-    @IsString()
-    email: string;
+  @IsNotEmpty()
+  @IsEmail()
+  @IsString()
+  email: string;
 
-   @IsNotEmpty()
-    @IsString()
-    contrasenia: string;
-    
-    @IsNotEmpty()
-    @IsString()
-    nickname: string;
+  @IsNotEmpty()
+  @IsString()
+  contrasenia: string;
+
+  @IsNotEmpty()
+  @IsString()
+  nickname: string;
 }

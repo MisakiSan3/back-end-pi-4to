@@ -8,103 +8,115 @@ import { TeacherDto } from './dto/teacher.dto';
 import { User } from 'src/modules/user/user/entities/user.entity';
 import { UserRepository } from 'src/modules/user/user/repositories/user.repository';
 
-
 @Injectable()
 export class TeachersService {
   constructor(
-    @InjectRepository(Teacher) private teacherRepostory: Repository<Teacher>
-    ){}
-    
+    @InjectRepository(Teacher) private teacherRepostory: Repository<Teacher>,
+  ) {}
 
-  async create(createteacherDto: TeacherDto):Promise<Teacher> {
+  async create(createteacherDto: TeacherDto): Promise<Teacher> {
     try {
-        const teacher: Teacher = await this.teacherRepostory.save(createteacherDto);
-        return teacher;
-      } catch (e) {
-        throw new Error(e);
+      const teacher: Teacher = await this.teacherRepostory.save(
+        createteacherDto,
+      );
+      return teacher;
+    } catch (e) {
+      throw new Error(e);
     }
   }
 
-  async findAllbyUser(user:string):Promise<Teacher[]> {
+  async findAllbyUser(user: string): Promise<Teacher[]> {
     try {
-        const teachers: Teacher[] =await this.teacherRepostory.createQueryBuilder('maestro')
-        .leftJoinAndSelect('maestro.asignatura','asignatura')
-        .leftJoinAndSelect('asignatura.user','usuario').where('asignatura.user = :user',{user}).getMany();
-        if (!teachers) {
-          throw new ErrorManager({
-            type:'BAD_REQUEST',
-            message:'No existen el registro'
-          });
-        }else {
-          return teachers
-        }
-      } catch (e) {
-        throw ErrorManager.createSignatureError(e.message);
-    }
-  }
-
-  async findAll():Promise<Teacher[]> {
-    try {
-        const teachers: Teacher[] =await this.teacherRepostory.createQueryBuilder('maestro').
-        leftJoinAndSelect('maestro.asignatura','asignatura')
-        .leftJoinAndSelect('asignatura.user','user').getMany();
-        if (teachers.length === 0) {
-          throw new ErrorManager({
-            type:'BAD_REQUEST',
-            message:'No existen registros'
-          });
-        }
-        return teachers
-      } catch (e) {
-        throw ErrorManager.createSignatureError(e.message);
-    }
-  }
-
-  async findOne(id: string):Promise<Teacher> {
-    try {
-        const teacher: Teacher = await this.teacherRepostory.createQueryBuilder('maestro')
-        .leftJoinAndSelect('maestro.asignatura','asignatura')
-        .leftJoinAndSelect('asignatura.user','user')
-        .where({id}).getOne()
-        if (!teacher) {
-          throw new ErrorManager({
-            type:'BAD_REQUEST',
-            message:'No se ha encontrado el registro'
-          });
-        }
-        return teacher;
-      } catch (e) {
-        throw ErrorManager.createSignatureError(e.message);
-    }
-  }
-  async update(id: string, updateteacherDto: UpdateTeacherDto):Promise<UpdateResult | undefined> {
-   try {
-       const teacher: UpdateResult =  await this.teacherRepostory.update(id,updateteacherDto);
-       if (teacher.affected === 0) {
+      const teachers: Teacher[] = await this.teacherRepostory
+        .createQueryBuilder('maestro')
+        .leftJoinAndSelect('maestro.asignatura', 'asignatura')
+        .leftJoinAndSelect('asignatura.user', 'usuario')
+        .where('asignatura.user = :user', { user })
+        .getMany();
+      if (!teachers) {
         throw new ErrorManager({
-          type:'BAD_REQUEST',
-          message:'No se ha podido actualizar'
+          type: 'BAD_REQUEST',
+          message: 'No existen el registro',
         });
-       }
-        return teacher;
-     } catch (e) {
-      throw ErrorManager.createSignatureError(e.message)
-   }
+      } else {
+        return teachers;
+      }
+    } catch (e) {
+      throw ErrorManager.createSignatureError(e.message);
+    }
   }
 
-  async remove(id: string):Promise<DeleteResult | undefined> {
+  async findAll(): Promise<Teacher[]> {
     try {
-        const teacher: DeleteResult =  await this.teacherRepostory.delete(id);
-        if (teacher.affected === 0) {
-          throw new ErrorManager({
-            type:'BAD_REQUEST',
-            message:'No se ha podido borrar'
-          });
-        }
-          return teacher;
-      } catch (e) {
-        throw ErrorManager.createSignatureError(e.message)
+      const teachers: Teacher[] = await this.teacherRepostory
+        .createQueryBuilder('maestro')
+        .leftJoinAndSelect('maestro.asignatura', 'asignatura')
+        .leftJoinAndSelect('asignatura.user', 'user')
+        .getMany();
+      if (teachers.length === 0) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'No existen registros',
+        });
+      }
+      return teachers;
+    } catch (e) {
+      throw ErrorManager.createSignatureError(e.message);
     }
-   }
+  }
 
+  async findOne(id: string): Promise<Teacher> {
+    try {
+      const teacher: Teacher = await this.teacherRepostory
+        .createQueryBuilder('maestro')
+        .leftJoinAndSelect('maestro.asignatura', 'asignatura')
+        .leftJoinAndSelect('asignatura.user', 'user')
+        .where({ id })
+        .getOne();
+      if (!teacher) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'No se ha encontrado el registro',
+        });
+      }
+      return teacher;
+    } catch (e) {
+      throw ErrorManager.createSignatureError(e.message);
+    }
+  }
+  async update(
+    id: string,
+    updateteacherDto: UpdateTeacherDto,
+  ): Promise<UpdateResult | undefined> {
+    try {
+      const teacher: UpdateResult = await this.teacherRepostory.update(
+        id,
+        updateteacherDto,
+      );
+      if (teacher.affected === 0) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'No se ha podido actualizar',
+        });
+      }
+      return teacher;
+    } catch (e) {
+      throw ErrorManager.createSignatureError(e.message);
+    }
+  }
+
+  async remove(id: string): Promise<DeleteResult | undefined> {
+    try {
+      const teacher: DeleteResult = await this.teacherRepostory.delete(id);
+      if (teacher.affected === 0) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'No se ha podido borrar',
+        });
+      }
+      return teacher;
+    } catch (e) {
+      throw ErrorManager.createSignatureError(e.message);
+    }
+  }
 }

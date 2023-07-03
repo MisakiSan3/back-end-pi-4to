@@ -7,11 +7,9 @@ import { TeacherRepository } from './repositories/teacher.repositorie';
 import { User } from 'src/modules/user/user/entities/user.entity';
 import { Subject } from '../subjects/entities/subject.entity';
 
-
-
 @Module({
-  imports: [TypeOrmModule.forFeature([TeacherRepository,Teacher,Subject])],
+  imports: [TypeOrmModule.forFeature([TeacherRepository, Teacher, Subject])],
   controllers: [TeachersController],
-  providers: [TeachersService]
+  providers: [TeachersService],
 })
 export class TeachersModule {}

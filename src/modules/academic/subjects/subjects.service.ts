@@ -97,6 +97,6 @@ export class SubjectsService {
    }
 
    async getSubjectsByUserId(userId: string): Promise<Subject[]> {
-    return this.subjectRepostory.find({ where:{user:{id:userId}}});
+    return this.subjectRepostory.find({ where:{user:{id:userId}},relations:['user']});
   }
 }

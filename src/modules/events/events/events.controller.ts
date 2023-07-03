@@ -18,7 +18,7 @@ export class EventsController {
     return await this.eventsService.findAll();
   }
 
-  @Get('byUser/:id')
+  @Get('event/:id')
   async findAllbyUser(@Param('id') id:string) {
     return await this.eventsService.findAllbyUser(id);
   }

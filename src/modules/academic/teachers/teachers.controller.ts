@@ -16,7 +16,7 @@ export class TeachersController {
   async findAll() {
     return await this.teachersService.findAll();
   }
-  @Get('byUser/:id')
+  @Get('teacher/:id')
   async findAllbyUser(@Param('id') id:string) {
     return await this.teachersService.findAllbyUser(id);
   }

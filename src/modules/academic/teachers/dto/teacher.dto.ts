@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
 import { Subject } from "../../subjects/entities/subject.entity";
 

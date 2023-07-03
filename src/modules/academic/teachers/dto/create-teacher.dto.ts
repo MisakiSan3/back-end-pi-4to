@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { OmitType } from "@nestjs/swagger";
 import { TeacherDto } from "./teacher.dto";
 import { IsNotEmpty, IsUUID } from "class-validator";

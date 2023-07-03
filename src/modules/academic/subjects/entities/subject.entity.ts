@@ -10,7 +10,7 @@ export class Subject {
     //////////////////////////////////////////////////////////////
     @Column('varchar',{
         name: 'nombre_m',
-        length: 20,
+        length: 50,
         nullable: false,
         comment: 'Nombre de la materia',  
     })

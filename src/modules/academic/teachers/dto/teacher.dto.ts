@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, IsUUID } from "class-validator";
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
 import { Subject } from "../../subjects/entities/subject.entity";
 
 
@@ -13,7 +13,7 @@ export class TeacherDto {
     @IsString()
     apellido_p: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     telf: string;
 

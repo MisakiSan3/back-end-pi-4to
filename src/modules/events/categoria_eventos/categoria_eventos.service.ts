@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+ import { Injectable } from '@nestjs/common';
 import { CategoriaEventoDto } from './dto/categoria.dto';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CategoriaEvento } from './entities/categoria_evento.entity';
